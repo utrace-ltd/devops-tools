@@ -3,7 +3,7 @@
 set -e
 
 if [[ ! "$DEVOPS_PRIVATE_KEY_BASE64" == "" ]]; then
-	echo $DEVOPS_PRIVATE_KEY_BASE64 | base64 -d > /root/.ssh/id_rsa
+	echo $DEVOPS_PRIVATE_KEY_BASE64== | base64 -d > /root/.ssh/id_rsa
 	chmod 600 /root/.ssh/id_rsa
 fi;
 
