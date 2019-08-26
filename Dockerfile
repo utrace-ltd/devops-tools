@@ -1,4 +1,7 @@
-FROM alpine:3.7
+FROM alpine:3.10
+
+RUN adduser devops -D -h /home/devops
+
 RUN apk add --no-cache curl bash git openssh-client python py-pip groff less mailcap ansible\
  && pip install awscli \
  && apk --purge del py-pip
@@ -20,9 +23,11 @@ RUN curl https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip 
  && mv /tmp/vault /usr/local/bin/ \
  && rm -f /tmp/vault.zip
 
-RUN mkdir -p /root/.ssh/ /root/.aws/ /root/.config/yandex-cloud/ /root/.kube/ \
- && chmod 700 /root/.ssh /root/.aws/ /root/.config/yandex-cloud/ /root/.kube/ \
- && ssh-keyscan -t rsa git.utrace.ru >> ~/.ssh/known_hosts
+RUN mkdir -p /home/devops/.ssh/ /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
+ && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
+ && ssh-keyscan -t rsa git.utrace.ru >> /home/devops/.ssh/known_hosts
+
+RUN chown -R devops:devops /home/devops
 
 ENV DEVOPS_PRIVATE_KEY_BASE64 ""
 ENV YC_PROFILES_BASE64 ""
@@ -40,6 +45,7 @@ ENV VAULT_TOKEN=""
 
 ADD container-entrypoint.sh /usr/sbin/
 
-WORKDIR "/root"
+USER devops
+WORKDIR "/home/devops"
 
 ENTRYPOINT ["/usr/sbin/container-entrypoint.sh"]
