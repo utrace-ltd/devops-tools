@@ -26,6 +26,8 @@ RUN mkdir -p /home/devops/.ssh/ /home/devops/.aws/ /home/devops/.config/yandex-c
  && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
  && ssh-keyscan -t rsa git.utrace.ru >> /home/devops/.ssh/known_hosts
 
+ADD ansible.cfg /home/devops/ansible.cfg
+
 RUN chown -R devops:devops /home/devops
 
 ENV DEVOPS_PRIVATE_KEY_BASE64 ""
