@@ -1,5 +1,5 @@
 FROM alpine:3.7
-RUN apk add --no-cache curl bash git openssh-client python py-pip groff less mailcap ansible vault \
+RUN apk add --no-cache curl bash git openssh-client python py-pip groff less mailcap ansible\
  && pip install awscli \
  && apk --purge del py-pip
 
