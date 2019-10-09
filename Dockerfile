@@ -3,7 +3,7 @@ FROM alpine:3.10.2
 RUN adduser devops -D -h /home/devops
 
 RUN apk add --no-cache curl bash git openssh-client python groff less mailcap ansible\
- && pip3 install awscli hvac
+ && pip3 install awscli hvac openshift
 
 ADD bump_git_version.sh /usr/local/bin/
 
