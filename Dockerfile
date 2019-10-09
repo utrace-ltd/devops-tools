@@ -1,4 +1,4 @@
-FROM alpine:3.10
+FROM alpine:3.10.2
 
 RUN adduser devops -D -h /home/devops
 
@@ -26,7 +26,7 @@ RUN mkdir -p /home/devops/.ssh/ /home/devops/.aws/ /home/devops/.config/yandex-c
  && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
  && ssh-keyscan -t rsa git.utrace.ru >> /home/devops/.ssh/known_hosts
 
-ADD ansible.cfg /home/devops/ansible.cfg
+ADD ansible.cfg /home/devops/
 
 RUN chown -R devops:devops /home/devops
 
