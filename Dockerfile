@@ -25,6 +25,9 @@ RUN curl https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip 
 RUN curl -L https://github.com/utrace-ltd/slak-release-notifier/releases/download/RC1-0.1.0/slack-release-notifier_linux_amd64 > /usr/local/bin/slack-release-notifier \
  && chmod +x /usr/local/bin/slack-release-notifier
 
+RUN curl -L https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64 > /usr/local/bin/yq \
+ && chmod +x /usr/local/bin/yq
+
 RUN mkdir -p /home/devops/.ssh/ /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
  && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
  && ssh-keyscan -t rsa git.utrace.ru >> /home/devops/.ssh/known_hosts
