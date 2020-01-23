@@ -25,7 +25,7 @@ RUN curl https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip 
 RUN curl -L https://github.com/utrace-ltd/slak-release-notifier/releases/download/RC2-0.1.0/slack-release-notifier_linux_amd64 > /usr/local/bin/slack-release-notifier \
  && chmod +x /usr/local/bin/slack-release-notifier
 
-RUN curl -L https://github.com/utrace-ltd/jira-release-updater/releases/download/RC3-0.1.0/jira-release-updater_linux_amd64 > /usr/local/bin/jira-release-updater \
+RUN curl -L https://github.com/utrace-ltd/jira-release-updater/releases/download/RC4-0.1.0/jira-release-updater_linux_amd64 > /usr/local/bin/jira-release-updater \
  && chmod +x /usr/local/bin/jira-release-updater
 
 RUN curl -L https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64 > /usr/local/bin/yq \
