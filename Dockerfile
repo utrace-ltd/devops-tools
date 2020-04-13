@@ -1,4 +1,4 @@
-FROM alpine:3.10.2
+FROM alpine:3.11.5
 
 RUN adduser devops -D -h /home/devops
 
