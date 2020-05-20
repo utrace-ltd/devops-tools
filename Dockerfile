@@ -5,7 +5,7 @@ RUN adduser devops -D -h /home/devops
 RUN apk add --no-cache curl bash git openssh-client python groff less mailcap ansible\
  && pip3 install awscli hvac openshift jira
 
-ADD bump_git_version.sh make_release.sh /usr/local/bin/
+ADD bump_git_version.sh make_release.sh releaser.py /usr/local/bin/
 
 RUN curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh > /tmp/install.sh \
  && chmod +x /tmp/install.sh \
