@@ -3,7 +3,7 @@ FROM alpine:3.11.5
 RUN adduser devops -D -h /home/devops
 
 RUN apk add --no-cache curl bash git openssh-client python groff less mailcap sshpass ansible \
- && pip3 install awscli hvac openshift jira
+ && pip3 install awscli kubernetes==11.0.0 hvac openshift jira
  
 ADD bump_git_version.sh make_release.sh releaser.py /usr/local/bin/
 
@@ -12,7 +12,7 @@ RUN curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh > /tmp/instal
  && /tmp/install.sh -i /usr/local \
  && rm -f /tmp/install.sh
 
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.13.3/bin/linux/amd64/kubectl \
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl \
  && chmod +x ./kubectl \
  && mv ./kubectl /usr/local/bin/kubectl
 
