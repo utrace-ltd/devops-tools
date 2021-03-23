@@ -7,6 +7,11 @@ RUN apk add --no-cache curl bash git openssh-client python groff less mailcap ss
  
 ADD bump_git_version.sh make_release.sh releaser.py /usr/local/bin/
 
+RUN curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh > /tmp/install.sh \
+ && chmod +x /tmp/install.sh \
+ && /tmp/install.sh -i /usr/local \
+ && rm -f /tmp/install.sh
+
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl \
  && chmod +x ./kubectl \
  && mv ./kubectl /usr/local/bin/kubectl
