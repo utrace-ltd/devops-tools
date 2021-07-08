@@ -16,11 +16,17 @@ RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/b
  && chmod +x ./kubectl \
  && mv ./kubectl /usr/local/bin/kubectl
 
-RUN curl https://releases.hashicorp.com/vault/1.2.2/vault_1.2.2_linux_amd64.zip > /tmp/vault.zip \
+RUN curl https://releases.hashicorp.com/vault/1.7.3/vault_1.7.3_linux_amd64.zip > /tmp/vault.zip \
  && unzip /tmp/vault.zip -d /tmp/ \
  && chmod +x /tmp/vault \
  && mv /tmp/vault /usr/local/bin/ \
  && rm -f /tmp/vault.zip
+
+RUN curl https://releases.hashicorp.com/terraform/1.0.2/terraform_1.0.2_linux_amd64.zip > /tmp/terraform.zip \
+ && unzip /tmp/terraform.zip -d /tmp/ \
+ && chmod +x /tmp/terraform \
+ && mv /tmp/terraform /usr/local/bin/ \
+ && rm -f /tmp/terraform.zip
 
 RUN curl -L https://github.com/utrace-ltd/slak-release-notifier/releases/download/RC2-0.1.0/slack-release-notifier_linux_amd64 > /usr/local/bin/slack-release-notifier \
  && chmod +x /usr/local/bin/slack-release-notifier
