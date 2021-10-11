@@ -28,6 +28,11 @@ RUN curl https://releases.hashicorp.com/terraform/1.0.2/terraform_1.0.2_linux_am
  && mv /tmp/terraform /usr/local/bin/ \
  && rm -f /tmp/terraform.zip
 
+RUN curl https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz > /tmp/helm.tar.gz \
+ && tar -zxvf /tmp/helm.tar.gz \
+ && mv linux-amd64/helm /usr/local/bin/helm \
+ && rm -fR /tmp/helm.tar.gz linux-amd64/
+
 RUN curl -L https://github.com/utrace-ltd/slak-release-notifier/releases/download/RC2-0.1.0/slack-release-notifier_linux_amd64 > /usr/local/bin/slack-release-notifier \
  && chmod +x /usr/local/bin/slack-release-notifier
 
