@@ -1,9 +1,19 @@
-FROM alpine:3.11.5
+FROM alpine:3.13
 
 RUN adduser devops -D -h /home/devops
 
-RUN apk add --no-cache curl bash git openssh-client python groff less mailcap sshpass ansible \
- && pip3 install awscli kubernetes==11.0.0 hvac openshift jira
+RUN apk add --no-cache curl bash git openssh-client openssl ca-certificates python3 py3-pip groff less mailcap sshpass \
+ && apk --no-cache add --virtual build-dependencies python3-dev libffi-dev musl-dev gcc cargo openssl-dev libressl-dev build-base && \
+    pip3 install --upgrade pip wheel && \
+    pip3 install --upgrade cryptography cffi && \
+    pip3 install ansible-core==2.11.6 ansible && \
+    pip3 install mitogen ansible-lint jmespath && \
+    pip3 install --upgrade pywinrm && \
+    pip3 install --upgrade kubernetes hvac openshift awscli jira && \
+    apk del build-dependencies && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf /root/.cache/pip && \
+    rm -rf /root/.cargo
  
 ADD bump_git_version.sh make_release.sh releaser.py /usr/local/bin/
 
