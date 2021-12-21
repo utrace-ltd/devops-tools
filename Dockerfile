@@ -2,7 +2,7 @@ FROM alpine:3.13
 
 RUN adduser devops -D -h /home/devops
 
-RUN apk add --no-cache curl bash git openssh-client openssl ca-certificates python3 py3-pip groff less mailcap sshpass \
+RUN apk add --no-cache curl bash git openssh-client openssl ca-certificates python3 py3-pip groff less mailcap sshpass jq \
  && apk --no-cache add --virtual build-dependencies python3-dev libffi-dev musl-dev gcc cargo openssl-dev libressl-dev build-base && \
     pip3 install --upgrade pip wheel && \
     pip3 install --upgrade cryptography cffi && \
@@ -14,8 +14,6 @@ RUN apk add --no-cache curl bash git openssh-client openssl ca-certificates pyth
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache/pip && \
     rm -rf /root/.cargo
- 
-ADD bump_git_version.sh make_release.sh /usr/local/bin/
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl \
  && chmod +x ./kubectl \
@@ -42,17 +40,18 @@ RUN curl -L https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd
  && chmod +x /usr/local/bin/yq
 
 RUN mkdir -p /home/devops/.ssh/ /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
- && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/ \
- && ssh-keyscan -t rsa git.utrace.ru >> /home/devops/.ssh/known_hosts
+ && chmod 700 /home/devops/.ssh /home/devops/.aws/ /home/devops/.config/yandex-cloud/ /home/devops/.kube/
 
+ADD bump_git_version.sh make_release.sh kubectl_vault_auto_config.sh /usr/local/bin/
 ADD ansible.cfg /home/devops/
 
 RUN chown -R devops:devops /home/devops
 
 ENV DEVOPS_PRIVATE_KEY_BASE64 ""
 ENV KUBECTL_CONFIG_BASE64 ""
+ENV KUBECTL_VAULT_AUTO_CONFIG ""
 
-ENV GIT_AUTHOR_NAME "devops@example.com"
+ENV GIT_AUTHOR_NAME "DevOps"
 ENV GIT_AUTHOR_EMAIL "devops@example.com"
 
 ENV AWS_ACCESS_KEY_ID "id"
