@@ -7,11 +7,6 @@ if [[ ! "$DEVOPS_PRIVATE_KEY_BASE64" == "" ]]; then
 	chmod 600 /home/devops/.ssh/id_rsa
 fi;
 
-if [[ ! "${YC_PROFILES_BASE64}" == "" ]]; then
-	echo ${YC_PROFILES_BASE64}== | base64 -d > /home/devops/.config/yandex-cloud/config.yaml
-	chmod 600 /home/devops/.config/yandex-cloud/config.yaml
-fi;
-
 if [[ ! "${KUBECTL_CONFIG_BASE64}" == "" ]]; then
 	echo ${KUBECTL_CONFIG_BASE64}== | base64 -d > /home/devops/.kube/config
 	chmod 600 /home/devops/.kube/config

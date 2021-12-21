@@ -9,18 +9,13 @@ RUN apk add --no-cache curl bash git openssh-client openssl ca-certificates pyth
     pip3 install ansible-core==2.11.6 ansible && \
     pip3 install mitogen ansible-lint jmespath && \
     pip3 install --upgrade pywinrm && \
-    pip3 install --upgrade kubernetes hvac openshift awscli jira && \
+    pip3 install --upgrade kubernetes hvac openshift awscli && \
     apk del build-dependencies && \
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache/pip && \
     rm -rf /root/.cargo
  
-ADD bump_git_version.sh make_release.sh releaser.py /usr/local/bin/
-
-RUN curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh > /tmp/install.sh \
- && chmod +x /tmp/install.sh \
- && /tmp/install.sh -i /usr/local \
- && rm -f /tmp/install.sh
+ADD bump_git_version.sh make_release.sh /usr/local/bin/
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl \
  && chmod +x ./kubectl \
@@ -43,12 +38,6 @@ RUN curl https://get.helm.sh/helm-v3.7.0-linux-amd64.tar.gz > /tmp/helm.tar.gz \
  && mv linux-amd64/helm /usr/local/bin/helm \
  && rm -fR /tmp/helm.tar.gz linux-amd64/
 
-RUN curl -L https://github.com/utrace-ltd/slak-release-notifier/releases/download/RC2-0.1.0/slack-release-notifier_linux_amd64 > /usr/local/bin/slack-release-notifier \
- && chmod +x /usr/local/bin/slack-release-notifier
-
-RUN curl -L https://github.com/utrace-ltd/jira-release-updater/releases/download/RC4-0.1.0/jira-release-updater_linux_amd64 > /usr/local/bin/jira-release-updater \
- && chmod +x /usr/local/bin/jira-release-updater
-
 RUN curl -L https://github.com/mikefarah/yq/releases/download/2.4.0/yq_linux_amd64 > /usr/local/bin/yq \
  && chmod +x /usr/local/bin/yq
 
@@ -61,7 +50,6 @@ ADD ansible.cfg /home/devops/
 RUN chown -R devops:devops /home/devops
 
 ENV DEVOPS_PRIVATE_KEY_BASE64 ""
-ENV YC_PROFILES_BASE64 ""
 ENV KUBECTL_CONFIG_BASE64 ""
 
 ENV GIT_AUTHOR_NAME "devops@example.com"
