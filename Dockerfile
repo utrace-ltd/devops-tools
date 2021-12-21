@@ -22,11 +22,11 @@ RUN curl https://storage.yandexcloud.net/yandexcloud-yc/install.sh > /tmp/instal
  && /tmp/install.sh -i /usr/local \
  && rm -f /tmp/install.sh
 
-RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.20.0/bin/linux/amd64/kubectl \
+RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.21.0/bin/linux/amd64/kubectl \
  && chmod +x ./kubectl \
  && mv ./kubectl /usr/local/bin/kubectl
 
-RUN curl https://releases.hashicorp.com/vault/1.7.3/vault_1.7.3_linux_amd64.zip > /tmp/vault.zip \
+RUN curl https://releases.hashicorp.com/vault/1.9.1/vault_1.9.1_linux_amd64.zip > /tmp/vault.zip \
  && unzip /tmp/vault.zip -d /tmp/ \
  && chmod +x /tmp/vault \
  && mv /tmp/vault /usr/local/bin/ \
